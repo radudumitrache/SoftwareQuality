@@ -10,14 +10,16 @@ public class TextDirector
     private Stylelevel1 stylelevel1;
     private Stylelevel2 stylelevel2;
     private Stylelevel3 stylelevel3;
-    
+
     private static TextDirector instance;
+
     private TextDirector()
     {
         try
         {
             Thread.sleep(1000);
-        } catch (InterruptedException e)
+        }
+        catch (InterruptedException e)
         {
             e.printStackTrace();
         }
@@ -26,6 +28,7 @@ public class TextDirector
         this.stylelevel2Builder = new Stylelevel2Builder();
         this.stylelevel3Builder = new Stylelevel3Builder();
     }
+
     public static TextDirector getInstance()
     {
         if (instance == null)
@@ -34,6 +37,7 @@ public class TextDirector
         }
         return instance;
     }
+
     public void constructStyleLevel0(Stylelevel0Builder builder)
     {
         builder.setIndent(0);
@@ -41,6 +45,7 @@ public class TextDirector
         builder.setFontSize(48);
         builder.setLeading(20);
     }
+
     public void constructStyleLevel1(Stylelevel1Builder builder)
     {
         builder.setIndent(20);
@@ -48,6 +53,7 @@ public class TextDirector
         builder.setFontSize(40);
         builder.setLeading(10);
     }
+
     public void constructStyleLevel2(Stylelevel2Builder builder)
     {
         builder.setIndent(50);
@@ -55,6 +61,7 @@ public class TextDirector
         builder.setFontSize(36);
         builder.setLeading(10);
     }
+
     public void constructStyleLevel3(Stylelevel3Builder builder)
     {
         builder.setIndent(90);
@@ -62,6 +69,7 @@ public class TextDirector
         builder.setFontSize(24);
         builder.setLeading(10);
     }
+
     public void constructStyles()
     {
         this.constructStyleLevel0(stylelevel0Builder);
@@ -73,7 +81,8 @@ public class TextDirector
         stylelevel2 = stylelevel2Builder.createStyle();
         stylelevel3 = stylelevel3Builder.createStyle();
     }
-    public Style  getStyle(StyleType styleType)
+
+    public Style getStyle(StyleType styleType)
     {
         switch (styleType)
         {
@@ -87,7 +96,7 @@ public class TextDirector
             }
             case STYLELEVEL2:
             {
-                return  this.stylelevel2;
+                return this.stylelevel2;
             }
             case STYLELEVEL3:
             {

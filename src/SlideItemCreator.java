@@ -1,3 +1,4 @@
-public interface SlideItemCreator {
+public interface SlideItemCreator
+{
     SlideItem createItemSlide();
 }
