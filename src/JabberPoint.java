@@ -22,24 +22,17 @@ public class JabberPoint {
 	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
 
 	/** Het Main Programma */
-	public static void main(String argv[]) {		
-		
-		
+	public static void main(String argv[]) {
+
+		Presentation presentation = new Presentation();
 		SlideViewerFrame.getInstance(JABVERSION, presentation);
 
 		TitleStyleBuilder titleBuilder = new TitleStyleBuilder();
 		TextStyleBuilder textBuilder = new TextStyleBuilder();
 		SubtitleStyleBuilder subtitleBuilder = new SubtitleStyleBuilder();
-		TextDirector director = new TextDirector();
-		director.constructTitleStyle(titleBuilder);
-		director.constructTextStyle(textBuilder);
-		director.constructSubtitleStyle(subtitleBuilder);
-		TitleStyle titleStyle = titleBuilder.createStyle();
-		TextStyle textStyle = textBuilder.createStyle();
-		SubtitleStyle subtitleStyle = subtitleBuilder.createStyle();
+		TextDirector director = TextDirector.getInstance();
+		director.constructStyles();
 
-//		Style.createStyles();
-		Presentation presentation = new Presentation();
 		new SlideViewerFrame(JABVERSION, presentation);
 		try {
 			if (argv.length == 0) { // een demo presentatie

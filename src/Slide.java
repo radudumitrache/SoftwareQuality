@@ -67,6 +67,7 @@ public class Slide {
 	// Title is handled separately
 
 	    SlideItem slideItem = new TextItem(StyleType.TITLESTYLE, getTitle());
+
 	    Style style = Style.getStyle(slideItem.getLevel());
 	    slideItem.draw(area.x, y, scale, g, style, view);
 	    y += slideItem.getBoundingBox(g, view, scale, style).height;
