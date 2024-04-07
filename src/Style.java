@@ -14,6 +14,7 @@ import java.awt.Font;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
+
 public abstract class Style {
 
 	private static final String FONTNAME = "Helvetica";
@@ -37,12 +38,14 @@ public abstract class Style {
 		this.indent = indent;
 		this.color = color;
 		font = new Font(FONTNAME, Font.BOLD, fontSize=fontSize);
+
 		this.leading = leading;
 	}
 
 	public String toString() {
 		return "["+ indent + "," + color + "; " + fontSize + " on " + leading +"]";
 	}
+
 	public Font getFont(float scale) {
 		return font.deriveFont(fontSize * scale);
 	}
@@ -96,4 +99,5 @@ public abstract class Style {
 	{
 		this.font = font;
 	}
+
 }

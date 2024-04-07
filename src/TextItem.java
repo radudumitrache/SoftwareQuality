@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 public class TextItem extends SlideItem {
 	private String text;
+
 	StyleType styleType ;
 	private static final String EMPTYTEXT = "No Text Given";
 
@@ -47,13 +48,12 @@ public class TextItem extends SlideItem {
 	}
 
 // an empty textitem
+
 	public TextItem()
 	{
 		this.styleType = StyleType.TEXTSTYLE;
 		text = "EMPTY STRING";
 	}
-
-
 // give the text
 	public String getText() {
 		return text == null ? "" : text;
@@ -70,6 +70,7 @@ public class TextItem extends SlideItem {
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
 			float scale, Style myStyle) {
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
+
 		int xsize = 0, ysize = (int) (myStyle.getLeading() * scale);
 		Iterator<TextLayout> iterator = layouts.iterator();
 		while (iterator.hasNext()) {
@@ -83,7 +84,9 @@ public class TextItem extends SlideItem {
 			}
 			ysize += layout.getLeading() + layout.getDescent();
 		}
+
 		return new Rectangle((int) (myStyle.getIndent()*scale), 0, xsize, ysize );
+
 	}
 
 // draw the item
@@ -93,10 +96,12 @@ public class TextItem extends SlideItem {
 			return;
 		}
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
+
 		Point pen = new Point(x + (int)(myStyle.getIndent() * scale),
 				y + (int) (myStyle.getLeading() * scale));
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(myStyle.getColor());
+
 		Iterator<TextLayout> it = layouts.iterator();
 		while (it.hasNext()) {
 			TextLayout layout = it.next();
@@ -112,14 +117,15 @@ public class TextItem extends SlideItem {
     	Graphics2D g2d = (Graphics2D) g;
     	FontRenderContext frc = g2d.getFontRenderContext();
     	LineBreakMeasurer measurer = new LineBreakMeasurer(attrStr.getIterator(), frc);
+
     	float wrappingWidth = (Slide.WIDTH - s.getIndent()) * scale;
+
     	while (measurer.getPosition() < getText().length()) {
     		TextLayout layout = measurer.nextLayout(wrappingWidth);
     		layouts.add(layout);
     	}
     	return layouts;
 	}
-
 	public String toString() {
 		return "TextItem[" + getStyleType()+","+getText()+"]";
 	}

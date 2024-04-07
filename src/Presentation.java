@@ -1,102 +1,90 @@
 import java.util.ArrayList;
 
-
-/**
- * <p>Presentation maintains the slides in the presentation.</p>
- * <p>There is only instance of this class.</p>
- * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
- * @version 1.1 2002/12/17 Gert Florijn
- * @version 1.2 2003/11/19 Sylvia Stuurman
- * @version 1.3 2004/08/17 Sylvia Stuurman
- * @version 1.4 2007/07/16 Sylvia Stuurman
- * @version 1.5 2010/03/03 Sylvia Stuurman
- * @version 1.6 2014/05/16 Sylvia Stuurman
- */
-
 public class Presentation {
-	private String showTitle; // title of the presentation
-	private ArrayList<Slide> showList = null; // an ArrayList with Slides
-	private int currentSlideNumber = 0; // the slidenummer of the current Slide
-	private SlideViewerComponent slideViewComponent = null; // the viewcomponent of the Slides
+    private String showTitle;
+    private ArrayList<Slide> showList;
+    private SlideViewerComponent slideViewComponent;
+    private PresentationIterator iterator;
 
-	public Presentation() {
-		slideViewComponent = null;
-		clear();
-	}
+    public Presentation() {
+        this.showList = new ArrayList<>();
+        this.iterator = new NormalIterator(this.showList); // Assuming a constructor that takes a slide list
+        this.showTitle = "";
+    }
 
-	public Presentation(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
-		clear();
-	}
+    public Presentation(SlideViewerComponent slideViewerComponent) {
+        this();
+        this.slideViewComponent = slideViewerComponent;
+    }
 
-	public int getSize() {
-		return showList.size();
-	}
+    public int getSize() {
+        return showList.size();
+    }
 
-	public String getTitle() {
-		return showTitle;
-	}
+    public String getTitle() {
+        return showTitle;
+    }
 
-	public void setTitle(String nt) {
-		showTitle = nt;
-	}
+    public void setTitle(String title) {
+        this.showTitle = title;
+    }
 
-	public void setShowView(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
-	}
+    public SlideViewerComponent getSlideViewComponent() {
+        return slideViewComponent;
+    }
 
-	// give the number of the current slide
-	public int getSlideNumber() {
-		return currentSlideNumber;
-	}
+    public void setSlideViewComponent(SlideViewerComponent slideViewerComponent) {
+        this.slideViewComponent = slideViewerComponent;
+    }
 
-	// change the current slide number and signal it to the window
-	public void setSlideNumber(int number) {
-		currentSlideNumber = number;
-		if (slideViewComponent != null) {
-			slideViewComponent.update(this, getCurrentSlide());
-		}
-	}
+    public Slide getCurrentSlide() {
+        return iterator.getCurrent();
+    }
 
-	// go to the previous slide unless your at the beginning of the presentation
-	public void prevSlide() {
-		if (currentSlideNumber > 0) {
-			setSlideNumber(currentSlideNumber - 1);
-	    }
-	}
+    public void setSlideNumber(int number) {
+        if (number >= 0 && number < showList.size()) {
+            iterator.setPosition(number);
+            if (slideViewComponent != null) {
+                slideViewComponent.update(this, getCurrentSlide());
+            }
+        }
+    }
 
-	// go to the next slide unless your at the end of the presentation.
-	public void nextSlide() {
-		if (currentSlideNumber < (showList.size()-1)) {
-			setSlideNumber(currentSlideNumber + 1);
-		}
-	}
+    public int getSlideNumber() {
+        return iterator.getPosition();
+    }
 
-	// Delete the presentation to be ready for the next one.
-	void clear() {
-		showList = new ArrayList<Slide>();
-		setSlideNumber(-1);
-	}
+    public void clear() {
+        showList.clear();
+        iterator = new NormalIterator(this.showList);
+    }
 
-	// Add a slide to the presentation
-	public void append(Slide slide) {
-		showList.add(slide);
-	}
+    public void append(Slide slide) {
+        showList.add(slide);
+    }
 
-	// Get a slide with a certain slidenumber
-	public Slide getSlide(int number) {
-		if (number < 0 || number >= getSize()){
-			return null;
-	    }
-			return (Slide)showList.get(number);
-	}
+    public Slide getSlide(int number) {
+        return (number >= 0 && number < showList.size()) ? showList.get(number) : null;
+    }
 
-	// Give the current slide
-	public Slide getCurrentSlide() {
-		return getSlide(currentSlideNumber);
-	}
+    public void nextSlide() {
+        if (iterator.hasMore()) {
+            iterator.getNext();
+            if (slideViewComponent != null) {
+                slideViewComponent.update(this, getCurrentSlide());
+            }
+        }
+    }
 
-	public void exit(int n) {
-		System.exit(n);
-	}
+    public void prevSlide() {
+        Slide slide = iterator.getPrevious();
+        if (slide != null && slideViewComponent != null) {
+            slideViewComponent.update(this, slide);
+        }
+    }
+
+    public void exit(int n) {
+        System.exit(n);
+    }
 }
+

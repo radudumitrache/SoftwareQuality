@@ -17,6 +17,8 @@ public abstract class SlideItem {
 
 
 
+
+
 // Give the bounding box
 	public abstract Rectangle getBoundingBox(Graphics g, 
 			ImageObserver observer, float scale, Style style);
