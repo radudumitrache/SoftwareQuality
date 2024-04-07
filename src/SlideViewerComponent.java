@@ -38,12 +38,10 @@ public class SlideViewerComponent extends JComponent {
 	private static final int XPOS = 1100;
 	private static final int YPOS = 20;
 
-	private ArrayList<PresentationIterator> iterators;
 
 	public SlideViewerComponent(Presentation pres, JFrame frame) {
 		this.presentation = pres;
 		this.frame = frame;
-		this.iterators = new ArrayList<>();
 		this.setBackground(BGCOLOR);
 		this.setForeground(COLOR);
 		this.labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);

@@ -5,11 +5,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class SlideViewerFrame extends JFrame {
-    private static final long serialVersionUID = 1L; // Adjust the serialVersionUID as necessary
+    private static final long serialVersionUID = 1L;
     private static final String JABTITLE = "Jabberpoint 1.6 - OU";
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
-    private static SlideViewerFrame instance; // Singleton instance
+    private static SlideViewerFrame instance;
 
     private SlideViewerFrame(String title, Presentation presentation) {
         super(title);
@@ -33,9 +33,9 @@ public class SlideViewerFrame extends JFrame {
             }
         });
         getContentPane().add(slideViewerComponent);
-        addKeyListener(new KeyController(presentation)); // add a controller, assumes KeyController is defined
-        setMenuBar(new MenuController(this, presentation)); // add another controller, assumes MenuController is defined
-        setSize(new Dimension(WIDTH, HEIGHT)); // Same sizes as Slide has.
+        addKeyListener(new KeyController(presentation));
+        setMenuBar(new MenuController(this, presentation));
+        setSize(new Dimension(WIDTH, HEIGHT));
         setVisible(true);
     }
 }
