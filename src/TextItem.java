@@ -1,3 +1,4 @@
+import javax.swing.text.Style;
 import java.awt.Rectangle;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -26,18 +27,32 @@ import java.util.ArrayList;
 
 public class TextItem extends SlideItem {
 	private String text;
+	StyleType styleType ;
 	private static final String EMPTYTEXT = "No Text Given";
 
-// a textitem of level level, with the text string
-	public TextItem(int level, String string) {
-		super(level);
+	public StyleType getStyleType()
+	{
+		return styleType;
+	}
+
+	public void setStyleType(StyleType styleType)
+	{
+		this.styleType = styleType;
+	}
+
+	// a textitem of level level, with the text string
+	public TextItem(StyleType styleType, String string) {
+		this.styleType = styleType;
 		text = string;
 	}
 
 // an empty textitem
-	public TextItem() {
-		this(0, EMPTYTEXT);
+	public TextItem()
+	{
+		this.styleType = StyleType.TEXTSTYLE;
+		text = "EMPTY STRING";
 	}
+
 
 // give the text
 	public String getText() {
@@ -106,6 +121,6 @@ public class TextItem extends SlideItem {
 	}
 
 	public String toString() {
-		return "TextItem[" + getLevel()+","+getText()+"]";
+		return "TextItem[" + getStyleType()+","+getText()+"]";
 	}
 }
