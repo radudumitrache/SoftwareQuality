@@ -37,11 +37,14 @@ public class BitmapItem implements SlideItem {
 	public String getName() {
 		return imageName;
 	}
+	public String toString() {
+		return "BitmapItem[" + imageName + "]";
+	}
 
 // give the  bounding box of the image
-	@Override
+
 	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
-		return new Rectangle((int) (myStyle. * scale), 0,
+		return new Rectangle((int) (myStyle.getIndent() * scale), 0,
 				(int) (bufferedImage.getWidth(observer) * scale),
 				((int) (myStyle.getLeading() * scale)) +
 				(int) (bufferedImage.getHeight(observer) * scale));
@@ -49,12 +52,6 @@ public class BitmapItem implements SlideItem {
 
 // draw the image
 
-
-	public String toString() {
-		return "BitmapItem[" + imageName + "]";
-	}
-
-	@Override
 	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer)
 	{
 		int width = x + (int) (myStyle.indent * scale);
