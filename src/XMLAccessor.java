@@ -101,7 +101,9 @@ public class XMLAccessor extends Accessor {
 		}
 		String type = attributes.getNamedItem(KIND).getTextContent();
 		if (TEXT.equals(type)) {
-			slide.append(new TextItem(level, item.getTextContent()));
+
+			slide.append(new TextItem(StyleType.TEXTSTYLE, item.getTextContent()));
+
 		}
 		else {
 			if (IMAGE.equals(type)) {

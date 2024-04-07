@@ -1,3 +1,4 @@
+
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
@@ -38,3 +39,4 @@ public class SlideViewerFrame extends JFrame {
         setVisible(true);
     }
 }
+

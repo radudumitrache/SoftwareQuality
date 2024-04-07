@@ -3,7 +3,9 @@ import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
 import java.util.ArrayList;
+
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -35,6 +37,7 @@ public class SlideViewerComponent extends JComponent {
 	private static final int FONTHEIGHT = 10;
 	private static final int XPOS = 1100;
 	private static final int YPOS = 20;
+
 	private ArrayList<PresentationIterator> iterators;
 
 	public SlideViewerComponent(Presentation pres, JFrame frame) {
@@ -44,11 +47,13 @@ public class SlideViewerComponent extends JComponent {
 		this.setBackground(BGCOLOR);
 		this.setForeground(COLOR);
 		this.labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
+
 	}
 
 	public Dimension getPreferredSize() {
 		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
 	}
+
 
 // draw the slide
 	public void paintComponent(Graphics g) {
@@ -60,6 +65,7 @@ public class SlideViewerComponent extends JComponent {
 		g.setFont(labelFont);
 		g.setColor(COLOR);
 		g.drawString("Slide " + (1 + presentation.getSlideNumber()) + " of " +
+
 				presentation.getSize(), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
 		slide.draw(g, area, this);
@@ -75,4 +81,5 @@ public class SlideViewerComponent extends JComponent {
 		repaint();
 		frame.setTitle(presentation.getTitle());
 	}
+
 }
