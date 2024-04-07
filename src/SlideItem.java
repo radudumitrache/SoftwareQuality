@@ -1,7 +1,7 @@
-import javax.swing.text.Style;
-import java.awt.Rectangle;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
+
 
 /** <p>The abstract class for an item on a slide<p>
  * <p>All SlideItems have drawingfunctionality.</p>
@@ -23,3 +23,4 @@ public interface SlideItem
     // give the  bounding box of the image
     Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle);
 }
+
