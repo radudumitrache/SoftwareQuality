@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class SubtitleStyleBuilder implements StyleBuilder
+public class Stylelevel1Builder implements StyleBuilder
 {
     private int indent;
     private Color color ;
@@ -32,8 +32,8 @@ public class SubtitleStyleBuilder implements StyleBuilder
     }
 
     @Override
-    public SubtitleStyle createStyle()
+    public Stylelevel1 createStyle()
     {
-        return new SubtitleStyle(indent,color,fontSize,leading);
+        return new Stylelevel1(indent,color,fontSize,leading);
     }
 }

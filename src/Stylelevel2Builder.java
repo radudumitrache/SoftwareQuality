@@ -1,11 +1,12 @@
 import java.awt.*;
 
-public class TitleStyleBuilder implements StyleBuilder
+public class Stylelevel2Builder implements StyleBuilder
 {
     private int indent;
     private Color color ;
     private int fontSize;
     private int leading;
+
     @Override
     public void setIndent(int indent)
     {
@@ -31,8 +32,8 @@ public class TitleStyleBuilder implements StyleBuilder
     }
 
     @Override
-    public TitleStyle createStyle()
+    public Stylelevel2 createStyle()
     {
-        return new TitleStyle(indent,color,fontSize,leading);
+        return new Stylelevel2(indent,color,fontSize,leading);
     }
 }

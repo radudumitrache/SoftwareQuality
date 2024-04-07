@@ -1,12 +1,11 @@
 import java.awt.*;
 
-public class TextStyleBuilder implements StyleBuilder
+public class Stylelevel0Builder implements StyleBuilder
 {
     private int indent;
     private Color color ;
     private int fontSize;
     private int leading;
-
     @Override
     public void setIndent(int indent)
     {
@@ -32,8 +31,8 @@ public class TextStyleBuilder implements StyleBuilder
     }
 
     @Override
-    public TextStyle createStyle()
+    public Stylelevel0 createStyle()
     {
-        return new TextStyle(indent,color,fontSize,leading);
+        return new Stylelevel0(indent,color,fontSize,leading);
     }
 }
