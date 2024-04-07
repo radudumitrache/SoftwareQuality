@@ -1,39 +1,56 @@
-public class NormalIterator implements PresentationIterator {
-    private Presentation presentation;
-    private int currentIndex = -1;
+import java.util.List;
 
-    public NormalIterator(Presentation presentation) {
-        this.presentation = presentation;
+public class NormalIterator implements PresentationIterator {
+    private List<Slide> slides;
+    private int currentPosition = 0;
+
+    public NormalIterator(List<Slide> slides) {
+        this.slides = slides;
+        this.currentPosition = -1; // Start before the first slide
     }
 
     @Override
     public Slide getNext() {
         if (hasMore()) {
-            currentIndex++;
-            return presentation.getSlide(currentIndex);
+            currentPosition++;
+            return slides.get(currentPosition);
         }
         return null;
     }
 
     @Override
     public boolean hasMore() {
-        return currentIndex < presentation.getSize() - 1;
+        return currentPosition < slides.size() - 1;
     }
 
     @Override
     public Slide getPrevious() {
-        if (currentIndex > 0) {
-            currentIndex--;
-            return presentation.getSlide(currentIndex);
+        if (currentPosition > 0) {
+            currentPosition--;
+            return slides.get(currentPosition);
         }
         return null;
     }
 
     @Override
     public Slide getCurrent() {
-        if (currentIndex >= 0 && currentIndex < presentation.getSize()) {
-            return presentation.getSlide(currentIndex);
+        if (currentPosition >= 0 && currentPosition < slides.size()) {
+            return slides.get(currentPosition);
         }
         return null;
+    }
+
+    @Override
+    public void setPosition(int index) {
+        if (index >= 0 && index < slides.size()) {
+            currentPosition = index;
+        } else {
+            throw new IndexOutOfBoundsException("Invalid index for slide position.");
+        }
+    }
+
+    @Override
+    public int getPosition() {
+        return currentPosition;
     }
 }

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 public class Presentation {
     private String showTitle;
     private ArrayList<Slide> showList;
@@ -7,7 +8,8 @@ public class Presentation {
 
     public Presentation() {
         this.showList = new ArrayList<>();
-        this.iterator = new NormalIterator(this); // Assuming NormalIterator is the concrete implementation
+        this.iterator = new NormalIterator(this.showList); // Assuming a constructor that takes a slide list
+        this.showTitle = "";
     }
 
     public Presentation(SlideViewerComponent slideViewerComponent) {
@@ -27,20 +29,49 @@ public class Presentation {
         this.showTitle = title;
     }
 
-    public void setShowView(SlideViewerComponent slideViewerComponent) {
+    public SlideViewerComponent getSlideViewComponent() {
+        return slideViewComponent;
+    }
+
+    public void setSlideViewComponent(SlideViewerComponent slideViewerComponent) {
         this.slideViewComponent = slideViewerComponent;
     }
 
-    // This method should now use the iterator to get the current slide
     public Slide getCurrentSlide() {
         return iterator.getCurrent();
     }
 
-    public void nextSlide() {
-        if (iterator.hasNext()) {
-            Slide slide = iterator.getNext();
+    public void setSlideNumber(int number) {
+        if (number >= 0 && number < showList.size()) {
+            iterator.setPosition(number);
             if (slideViewComponent != null) {
-                slideViewComponent.update(this, slide);
+                slideViewComponent.update(this, getCurrentSlide());
+            }
+        }
+    }
+
+    public int getSlideNumber() {
+        return iterator.getPosition();
+    }
+
+    public void clear() {
+        showList.clear();
+        iterator = new NormalIterator(this.showList);
+    }
+
+    public void append(Slide slide) {
+        showList.add(slide);
+    }
+
+    public Slide getSlide(int number) {
+        return (number >= 0 && number < showList.size()) ? showList.get(number) : null;
+    }
+
+    public void nextSlide() {
+        if (iterator.hasMore()) {
+            iterator.getNext();
+            if (slideViewComponent != null) {
+                slideViewComponent.update(this, getCurrentSlide());
             }
         }
     }
@@ -52,22 +83,7 @@ public class Presentation {
         }
     }
 
-    public void clear() {
-        showList.clear();
-        iterator = new NormalIterator(this); // Reset the iterator
-    }
-
-    public void append(Slide slide) {
-        showList.add(slide);
-    }
-
-    public Slide getSlide(int number) {
-        if (number < 0 || number >= getSize()) {
-            return null;
-        }
-        return showList.get(number);
-    }
-
     public void exit(int n) {
         System.exit(n);
     }
+}
