@@ -32,8 +32,8 @@ public class SubtitleStyleBuilder implements StyleBuilder
     }
 
     @Override
-    public Style createStyle()
+    public SubtitleStyle createStyle()
     {
-        return new TextStyle(indent,color,fontSize,leading);
+        return new SubtitleStyle(indent,color,fontSize,leading);
     }
 }

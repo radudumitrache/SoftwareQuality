@@ -23,8 +23,18 @@ public class JabberPoint {
 
 	/** Het Main Programma */
 	public static void main(String argv[]) {
-		
-		Style.createStyles();
+		TitleStyleBuilder titleBuilder = new TitleStyleBuilder();
+		TextStyleBuilder textBuilder = new TextStyleBuilder();
+		SubtitleStyleBuilder subtitleBuilder = new SubtitleStyleBuilder();
+		TextDirector director = new TextDirector();
+		director.constructTitleStyle(titleBuilder);
+		director.constructTextStyle(textBuilder);
+		director.constructSubtitleStyle(subtitleBuilder);
+		TitleStyle titleStyle = titleBuilder.createStyle();
+		TextStyle textStyle = textBuilder.createStyle();
+		SubtitleStyle subtitleStyle = subtitleBuilder.createStyle();
+
+//		Style.createStyles();
 		Presentation presentation = new Presentation();
 		new SlideViewerFrame(JABVERSION, presentation);
 		try {

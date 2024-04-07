@@ -1,7 +1,8 @@
 import java.awt.*;
 
-public class Director
+public class TextDirector
 {
+
     public void constructTitleStyle(TitleStyleBuilder builder)
     {
         builder.setIndent(0);
@@ -16,7 +17,7 @@ public class Director
         builder.setFontSize(40);
         builder.setLeading(10);
     }
-    public void constructSubtitle (SubtitleStyleBuilder builder)
+    public void constructSubtitleStyle (SubtitleStyleBuilder builder)
     {
         builder.setIndent(90);
         builder.setColor(Color.black);

@@ -32,7 +32,7 @@ public class TextStyleBuilder implements StyleBuilder
     }
 
     @Override
-    public Style createStyle()
+    public TextStyle createStyle()
     {
         return new TextStyle(indent,color,fontSize,leading);
     }
