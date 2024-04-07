@@ -26,12 +26,14 @@ public class Style {
 		this.indent = indent;
 		this.color = color;
 		font = new Font(FONTNAME, Font.BOLD, fontSize=fontSize);
+
 		this.leading = leading;
 	}
 
 	public String toString() {
 		return "["+ indent + "," + color + "; " + fontSize + " on " + leading +"]";
 	}
+
 	public Font getFont(float scale) {
 		return font.deriveFont(fontSize * scale);
 	}

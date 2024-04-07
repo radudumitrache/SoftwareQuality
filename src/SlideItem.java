@@ -14,13 +14,12 @@ import java.awt.image.ImageObserver;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
+
 public interface SlideItem
 {
     // Give the bounding box
     public  Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
-
-// Draw the item
-
+    
     void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver o);
 
     // draw the image
