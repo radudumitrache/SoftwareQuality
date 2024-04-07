@@ -32,19 +32,17 @@ public class JabberPoint {
 		Stylelevel3Builder subtitleBuilder = new Stylelevel3Builder();
 		TextDirector director = TextDirector.getInstance();
 		director.constructStyles();
-
-		new SlideViewerFrame(JABVERSION, presentation);
 		try {
-			if (argv.length == 0) { // een demo presentatie
-				Accessor.getDemoAccessor().loadFile(presentation, "");
-			} else {
-				new XMLAccessor().loadFile(presentation, argv[0]);
-			}
-			presentation.setSlideNumber(0);
-		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null,
-					IOERR + ex, JABERR,
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
+            if (argv.length == 0) {
+                Accessor.getDemoAccessor().loadFile(presentation, "");
+            } else {
+                new XMLAccessor().loadFile(presentation, argv[0]);
+            }
+            presentation.setSlideNumber(0);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null,
+                    IOERR + ex, JABERR,
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 }
