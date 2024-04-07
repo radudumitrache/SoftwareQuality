@@ -14,7 +14,7 @@ import java.awt.Font;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public abstract class Style {
+public class Style {
 
 	private static final String FONTNAME = "Helvetica";
 	private  int  indent;
@@ -22,17 +22,6 @@ public abstract class Style {
 	private int fontSize;
 	private int leading;
 	private Font font;
-
-
-//	public static void createStyles() {
-//		styles = new Style[5];
-//		// The styles are fixed.
-//		styles[0] = new Style(0, Color.red,   48, 20);	// style for item-level 0
-//		styles[1] = new Style(20, Color.blue,  40, 10);	// style for item-level 1
-//		styles[2] = new Style(50, Color.black, 36, 10);	// style for item-level 2
-//		styles[3] = new Style(70, Color.black, 30, 10);	// style for item-level 3
-//		styles[4] = new Style(90, Color.black, 24, 10);	// style for item-level 4
-//	}
 	public Style(int indent, Color color, int fontSize, int leading) {
 		this.indent = indent;
 		this.color = color;
@@ -49,7 +38,7 @@ public abstract class Style {
 
 	public int getIndent()
 	{
-		return indent;
+		return this.indent;
 	}
 
 	public void setIndent(int indent)
@@ -96,4 +85,5 @@ public abstract class Style {
 	{
 		this.font = font;
 	}
+
 }

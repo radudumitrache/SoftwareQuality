@@ -6,4 +6,5 @@ public class TextStyle extends Style
     {
         super(indent, color, fontSize, leading);
     }
+
 }

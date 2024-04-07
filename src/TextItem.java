@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class TextItem extends SlideItem {
+public class TextItem implements SlideItem {
 	private String text;
 	StyleType styleType ;
 	private static final String EMPTYTEXT = "No Text Given";
@@ -62,12 +62,14 @@ public class TextItem extends SlideItem {
 // geef de AttributedString voor het item
 	public AttributedString getAttributedString(Style style, float scale) {
 		AttributedString attrStr = new AttributedString(getText());
+
 		attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
 		return attrStr;
 	}
 
 // give the bounding box of the item
-	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, 
+	@Override
+	public Rectangle getBoundingBox(Graphics g, ImageObserver observer,
 			float scale, Style myStyle) {
 		List<TextLayout> layouts = getLayouts(g, myStyle, scale);
 		int xsize = 0, ysize = (int) (myStyle.getLeading() * scale);
@@ -87,7 +89,9 @@ public class TextItem extends SlideItem {
 	}
 
 // draw the item
-	public void draw(int x, int y, float scale, Graphics g, 
+
+	@Override
+	public void draw(int x, int y, float scale, Graphics g,
 			Style myStyle, ImageObserver o) {
 		if (text == null || text.length() == 0) {
 			return;
