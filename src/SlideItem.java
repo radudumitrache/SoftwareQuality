@@ -22,5 +22,6 @@ public interface SlideItem
 
     // give the  bounding box of the image
     Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle);
+    Style getStyle();
 }
 

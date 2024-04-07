@@ -20,7 +20,7 @@ public class TextItem implements SlideItem {
 
 	public TextItem(String text) {
 		this.text = text;
-		this.styleType = StyleType.TEXTSTYLE;
+		this.styleType = StyleType.STYLELEVEL0;
 	}
 
 	public TextItem(StyleType styleType, String string) {
@@ -29,7 +29,7 @@ public class TextItem implements SlideItem {
 	}
 
 	public TextItem() {
-		this.styleType = StyleType.TEXTSTYLE;
+		this.styleType = StyleType.STYLELEVEL0;
 		this.text = EMPTYTEXT;
 	}
 
@@ -92,6 +92,12 @@ public class TextItem implements SlideItem {
 			ysize += layout.getAscent() + layout.getDescent() + layout.getLeading();
 		}
 		return new Rectangle((int)(style.getIndent() * scale), 0, xsize, ysize);
+	}
+	@Override
+	public Style getStyle()
+	{
+		TextDirector director = TextDirector.getInstance();
+		return director.getStyle(this.styleType);
 	}
 
 	public String toString() {

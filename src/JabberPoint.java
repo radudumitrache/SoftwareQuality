@@ -27,9 +27,9 @@ public class JabberPoint {
 		Presentation presentation = new Presentation();
 		SlideViewerFrame.getInstance(JABVERSION, presentation);
 
-		TitleStyleBuilder titleBuilder = new TitleStyleBuilder();
-		TextStyleBuilder textBuilder = new TextStyleBuilder();
-		SubtitleStyleBuilder subtitleBuilder = new SubtitleStyleBuilder();
+		Stylelevel0Builder titleBuilder = new Stylelevel0Builder();
+		Stylelevel1Builder textBuilder = new Stylelevel1Builder();
+		Stylelevel3Builder subtitleBuilder = new Stylelevel3Builder();
 		TextDirector director = TextDirector.getInstance();
 		director.constructStyles();
 

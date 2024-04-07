@@ -2,12 +2,15 @@ import java.awt.*;
 
 public class TextDirector
 {
-    private TextStyleBuilder textBuilder;
-    private TitleStyleBuilder titleStyleBuilder;
-    private SubtitleStyleBuilder subtitleStyleBuilder;
-    private TitleStyle titleStyle;
-    private TextStyle textStyle;
-    private SubtitleStyle subtitleStyle;
+    private Stylelevel1Builder stylelevel1Builder;
+    private Stylelevel0Builder stylelevel0Builder;
+    private Stylelevel2Builder stylelevel2Builder;
+    private Stylelevel3Builder stylelevel3Builder;
+    private Stylelevel0 titleStyle;
+    private Stylelevel1 textStyle;
+    private Stylelevel2 stylelevel2;
+    private Stylelevel3 subtitleStyle;
+    
     private static TextDirector instance;
     private TextDirector()
     {
@@ -18,10 +21,10 @@ public class TextDirector
         {
             e.printStackTrace();
         }
-
-        this.textBuilder = new TextStyleBuilder();
-        this.titleStyleBuilder = new TitleStyleBuilder();
-        this.subtitleStyleBuilder = new SubtitleStyleBuilder();
+        this.stylelevel0Builder = new Stylelevel0Builder();
+        this.stylelevel1Builder = new Stylelevel1Builder();
+        this.stylelevel2Builder = new Stylelevel2Builder();
+        this.stylelevel3Builder = new Stylelevel3Builder();
     }
     public static TextDirector getInstance()
     {
@@ -31,21 +34,21 @@ public class TextDirector
         }
         return instance;
     }
-    public void constructTitleStyle(TitleStyleBuilder builder)
+    public void constructTitleStyle(Stylelevel0Builder builder)
     {
         builder.setIndent(0);
         builder.setColor(Color.red);
         builder.setFontSize(48);
         builder.setLeading(20);
     }
-    public void constructTextStyle (TextStyleBuilder builder)
+    public void constructTextStyle (Stylelevel1Builder builder)
     {
         builder.setIndent(20);
         builder.setColor(Color.blue);
         builder.setFontSize(40);
         builder.setLeading(10);
     }
-    public void constructSubtitleStyle (SubtitleStyleBuilder builder)
+    public void constructSubtitleStyle (Stylelevel3Builder builder)
     {
         builder.setIndent(90);
         builder.setColor(Color.black);
@@ -54,26 +57,26 @@ public class TextDirector
     }
     public void constructStyles()
     {
-        this.constructTitleStyle(titleStyleBuilder);
-        this.constructTextStyle(textBuilder);
-        this.constructSubtitleStyle(subtitleStyleBuilder);
-        titleStyle = titleStyleBuilder.createStyle();
-        textStyle = textBuilder.createStyle();
-        subtitleStyle = subtitleStyleBuilder.createStyle();
+        this.constructTitleStyle(stylelevel0Builder);
+        this.constructTextStyle(stylelevel1Builder);
+        this.constructSubtitleStyle(stylelevel3Builder);
+        titleStyle = stylelevel0Builder.createStyle();
+        textStyle = stylelevel1Builder.createStyle();
+        subtitleStyle = stylelevel3Builder.createStyle();
     }
     public Style  getStyle(StyleType styleType)
     {
         switch (styleType)
         {
-            case TITLESTYLE :
+            case STYLELEVEL1:
             {
                 return this.titleStyle;
             }
-            case TEXTSTYLE:
+            case STYLELEVEL0:
             {
                 return this.textStyle;
             }
-            case SUBTITLESTYLE:
+            case STYLELEVEL2:
             {
                 return this.subtitleStyle;
             }
