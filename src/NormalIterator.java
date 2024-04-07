@@ -1,17 +1,21 @@
 import java.util.List;
 
-public class NormalIterator implements PresentationIterator {
+public class NormalIterator implements PresentationIterator
+{
     private List<Slide> slides;
     private int currentPosition = 0;
 
-    public NormalIterator(List<Slide> slides) {
+    public NormalIterator(List<Slide> slides)
+    {
         this.slides = slides;
-        this.currentPosition = -1; // Start before the first slide
+        this.currentPosition = -1;
     }
 
     @Override
-    public Slide getNext() {
-        if (hasMore()) {
+    public Slide getNext()
+    {
+        if (hasMore())
+        {
             currentPosition++;
             return slides.get(currentPosition);
         }
@@ -19,13 +23,16 @@ public class NormalIterator implements PresentationIterator {
     }
 
     @Override
-    public boolean hasMore() {
+    public boolean hasMore()
+    {
         return currentPosition < slides.size() - 1;
     }
 
     @Override
-    public Slide getPrevious() {
-        if (currentPosition > 0) {
+    public Slide getPrevious()
+    {
+        if (currentPosition > 0)
+        {
             currentPosition--;
             return slides.get(currentPosition);
         }
@@ -33,24 +40,31 @@ public class NormalIterator implements PresentationIterator {
     }
 
     @Override
-    public Slide getCurrent() {
-        if (currentPosition >= 0 && currentPosition < slides.size()) {
+    public Slide getCurrent()
+    {
+        if (currentPosition >= 0 && currentPosition < slides.size())
+        {
             return slides.get(currentPosition);
         }
         return null;
     }
 
     @Override
-    public void setPosition(int index) {
-        if (index >= 0 && index < slides.size()) {
+    public void setPosition(int index)
+    {
+        if (index >= 0 && index < slides.size())
+        {
             currentPosition = index;
-        } else {
+        }
+        else
+        {
             throw new IndexOutOfBoundsException("Invalid index for slide position.");
         }
     }
 
     @Override
-    public int getPosition() {
+    public int getPosition()
+    {
         return currentPosition;
     }
 }

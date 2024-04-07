@@ -3,9 +3,10 @@ import java.awt.*;
 public class Stylelevel0Builder implements StyleBuilder
 {
     private int indent;
-    private Color color ;
+    private Color color;
     private int fontSize;
     private int leading;
+
     @Override
     public void setIndent(int indent)
     {
@@ -33,6 +34,6 @@ public class Stylelevel0Builder implements StyleBuilder
     @Override
     public Stylelevel0 createStyle()
     {
-        return new Stylelevel0(indent,color,fontSize,leading);
+        return new Stylelevel0(indent, color, fontSize, leading);
     }
 }

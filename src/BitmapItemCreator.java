@@ -1,6 +1,8 @@
-public class BitmapItemCreator implements SlideItemCreator {
+public class BitmapItemCreator implements SlideItemCreator
+{
     @Override
-    public SlideItem createItemSlide() {
+    public SlideItem createItemSlide()
+    {
         return new BitmapItem("default_name");
     }
 }

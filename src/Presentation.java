@@ -1,89 +1,111 @@
 import java.util.ArrayList;
 
-public class Presentation {
+public class Presentation
+{
     private String showTitle;
     private ArrayList<Slide> showList;
     private SlideViewerComponent slideViewComponent;
     private PresentationIterator iterator;
 
-    public Presentation() {
+    public Presentation()
+    {
         this.showList = new ArrayList<>();
-        this.iterator = new NormalIterator(this.showList); // Assuming a constructor that takes a slide list
+        this.iterator = new NormalIterator(this.showList);
         this.showTitle = "";
     }
 
-    public Presentation(SlideViewerComponent slideViewerComponent) {
+    public Presentation(SlideViewerComponent slideViewerComponent)
+    {
         this();
         this.slideViewComponent = slideViewerComponent;
     }
 
-    public int getSize() {
+    public int getSize()
+    {
         return showList.size();
     }
 
-    public String getTitle() {
+    public String getTitle()
+    {
         return showTitle;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.showTitle = title;
     }
 
-    public SlideViewerComponent getSlideViewComponent() {
+    public SlideViewerComponent getSlideViewComponent()
+    {
         return slideViewComponent;
     }
 
-    public void setSlideViewComponent(SlideViewerComponent slideViewerComponent) {
+    public void setSlideViewComponent(SlideViewerComponent slideViewerComponent)
+    {
         this.slideViewComponent = slideViewerComponent;
     }
 
-    public Slide getCurrentSlide() {
+    public Slide getCurrentSlide()
+    {
         return iterator.getCurrent();
     }
 
-    public void setSlideNumber(int number) {
-        if (number >= 0 && number < showList.size()) {
+    public void setSlideNumber(int number)
+    {
+        if (number >= 0 && number < showList.size())
+        {
             iterator.setPosition(number);
-            if (slideViewComponent != null) {
+            if (slideViewComponent != null)
+            {
                 slideViewComponent.update(this, getCurrentSlide());
             }
         }
     }
 
-    public int getSlideNumber() {
+    public int getSlideNumber()
+    {
         return iterator.getPosition();
     }
 
-    public void clear() {
+    public void clear()
+    {
         showList.clear();
         iterator = new NormalIterator(this.showList);
     }
 
-    public void append(Slide slide) {
+    public void append(Slide slide)
+    {
         showList.add(slide);
     }
 
-    public Slide getSlide(int number) {
+    public Slide getSlide(int number)
+    {
         return (number >= 0 && number < showList.size()) ? showList.get(number) : null;
     }
 
-    public void nextSlide() {
-        if (iterator.hasMore()) {
+    public void nextSlide()
+    {
+        if (iterator.hasMore())
+        {
             iterator.getNext();
-            if (slideViewComponent != null) {
+            if (slideViewComponent != null)
+            {
                 slideViewComponent.update(this, getCurrentSlide());
             }
         }
     }
 
-    public void prevSlide() {
+    public void prevSlide()
+    {
         Slide slide = iterator.getPrevious();
-        if (slide != null && slideViewComponent != null) {
+        if (slide != null && slideViewComponent != null)
+        {
             slideViewComponent.update(this, slide);
         }
     }
 
-    public void exit(int n) {
+    public void exit(int n)
+    {
         System.exit(n);
     }
 }
