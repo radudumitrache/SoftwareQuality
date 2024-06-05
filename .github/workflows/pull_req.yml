@@ -16,11 +16,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Optionally, fetch all history if needed for complex workflows
-
       - name: Auto-merge PR
         uses: pascalgn/automerge-action@v0.14.3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provide the token via environment variable
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           mergeMethod: merge # The method to use when merging the pull request into the base branch
 
