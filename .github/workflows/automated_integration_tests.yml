@@ -1,4 +1,4 @@
-name: Automated Integration Tests
+name: Automated Integration Tests with Oracle JDK
 
 on:
   push:
@@ -13,11 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up JDK 11
+      - name: Set up JDK 11 using Oracle JDK
         uses: actions/setup-java@v3
         with:
           java-version: 11
-          distribution: "temurin"
+          distribution: "oracle"
 
       - name: Run integration tests
         run: |
