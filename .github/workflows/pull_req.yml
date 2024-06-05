@@ -7,16 +7,26 @@ on:
 jobs:
   pr-management:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Necessary for actions/checkout to clone the repository
+      pull-requests: write # Necessary for merging pull requests and managing pull request details
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Optionally, fetch all history if needed for complex workflows
+
       - name: Auto-merge PR
         uses: pascalgn/automerge-action@v0.14.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Provide the token via environment variable
         with:
-          mergeMethod: merge
-          token: ${{ secrets.GITHUB_TOKEN }}
+          mergeMethod: merge # The method to use when merging the pull request into the base branch
+
       - name: Add labels
         uses: actions/labeler@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Ensure environment variable is correctly set
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          configuration-path: .github/labeler.yml
+          configuration-path: .github/labeler.yml # Path to the label configuration file
