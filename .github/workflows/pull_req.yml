@@ -1,0 +1,22 @@
+name: Pull Request Management
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  pr-management:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Auto-merge PR
+        uses: pascalgn/automerge-action@v0.14.3
+        with:
+          mergeMethod: merge
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add labels
+        uses: actions/labeler@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml
