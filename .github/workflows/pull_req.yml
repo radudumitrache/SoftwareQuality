@@ -25,4 +25,5 @@ jobs:
           labels: automated-pr, Clouds & Regions
           branch: "cloud-update-$(date +%Y-%m-%d)"
           delete-branch: false
+        env:
           token: ${{ secrets.GITHUB_TOKEN }}
