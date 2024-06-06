@@ -83,26 +83,26 @@ public class MenuController extends MenuBar {
         MenuItem menuItem;
         Menu fileMenu = new Menu(FILE);
         fileMenu.add(menuItem = mkMenuItem(OPEN));
-        menuItem.addActionListener( _ -> load_presentation());
+        menuItem.addActionListener( e -> load_presentation());
         fileMenu.add(menuItem = mkMenuItem(NEW));
-        menuItem.addActionListener(_ -> new_presentation());
+        menuItem.addActionListener( e -> new_presentation());
         fileMenu.add(menuItem = mkMenuItem(SAVE));
-        menuItem.addActionListener(_ -> save_presentation());
+        menuItem.addActionListener( e -> save_presentation());
         fileMenu.addSeparator();
         fileMenu.add(menuItem = mkMenuItem(EXIT));
-        menuItem.addActionListener(_ -> presentation.exit(0));
+        menuItem.addActionListener( e -> presentation.exit(0));
         add(fileMenu);
         Menu viewMenu = new Menu(VIEW);
         viewMenu.add(menuItem = mkMenuItem(NEXT));
-        menuItem.addActionListener(_ -> presentation.nextSlide());
+        menuItem.addActionListener( e -> presentation.nextSlide());
         viewMenu.add(menuItem = mkMenuItem(PREV));
-        menuItem.addActionListener(_ -> presentation.prevSlide());
+        menuItem.addActionListener( e -> presentation.prevSlide());
         viewMenu.add(menuItem = mkMenuItem(GOTO));
-        menuItem.addActionListener(_ -> go_to_presentation());
+        menuItem.addActionListener( e -> go_to_presentation());
         add(viewMenu);
         Menu helpMenu = new Menu(HELP);
         helpMenu.add(menuItem = mkMenuItem(ABOUT));
-        menuItem.addActionListener(_ -> AboutBox.show(parent));
+        menuItem.addActionListener(e -> AboutBox.show(parent));
         setHelpMenu(helpMenu);
     }
 
