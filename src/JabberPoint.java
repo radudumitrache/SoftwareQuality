@@ -1,3 +1,12 @@
+import accessors.Accessor;
+import accessors.XMLAccessor;
+import style.builders.Stylelevel0Builder;
+import style.builders.Stylelevel1Builder;
+import style.builders.Stylelevel3Builder;
+import presentation.Presentation;
+import style.TextDirector;
+import viewers.SlideViewerFrame;
+
 import javax.swing.JOptionPane;
 
 import java.io.IOException;
