@@ -1,0 +1,28 @@
+name: Code Linting with Google Java Format
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: "11" # Make sure this matches the JDK version you want to use
+          distribution: "temurin"
+
+      - name: Download Google Java Format
+        run: |
+          wget https://github.com/google/google-java-format/releases/download/v1.22.0/google-java-format-1.22.0-all-deps.jar -O google-java-format.jar
+
+      - name: Run Google Java Format
+        run: |
+          java -jar google-java-format.jar --replace $(find . -type f -name '*.java')
