@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: "temurin" # Change to Temurin for better compatibility
+          distribution: "temurin" # Change to Temurin
 
       - name: Run integration tests
         run: |
