@@ -19,7 +19,7 @@ jobs:
       - name: Auto-merge PR
         uses: pascalgn/automerge-action@v0.14.3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SOFTWARE_QUALITY }}
         with:
           mergeMethod: merge # The method to use when merging the pull request into the base branch
 
