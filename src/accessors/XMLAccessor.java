@@ -52,6 +52,7 @@ public class XMLAccessor extends Accessor
     /**
      * tekst van messages
      */
+    //TODO check error types and maybe write them separately
     protected static final String PCE = "Parser Configuration Exception";
     protected static final String UNKNOWNTYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
@@ -63,18 +64,22 @@ public class XMLAccessor extends Accessor
         return titles.item(0).getTextContent();
 
     }
+    private NodeList getSlides(Presentation presentation, String filename) throws Exception
+    {
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document document = builder.parse(new File(filename)); // Create a JDOM document
+        Element doc = document.getDocumentElement();
+        presentation.setTitle(getTitle(doc, SHOWTITLE));
 
+        return doc.getElementsByTagName(SLIDE);
+    }
     public void loadFile(Presentation presentation, String filename) throws IOException
     {
+        //TODO check if good
         int slideNumber, itemNumber, max = 0, maxItems = 0;
         try
         {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = builder.parse(new File(filename)); // Create a JDOM document
-            Element doc = document.getDocumentElement();
-            presentation.setTitle(getTitle(doc, SHOWTITLE));
-
-            NodeList slides = doc.getElementsByTagName(SLIDE);
+            NodeList slides = getSlides(presentation,filename);
             max = slides.getLength();
             for (slideNumber = 0; slideNumber < max; slideNumber++)
             {
@@ -104,53 +109,61 @@ public class XMLAccessor extends Accessor
         {
             System.err.println(PCE);
         }
+        catch (Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
     }
-
+    private int getItemLevel(NamedNodeMap attributes)
+    {
+        String levelText = attributes.getNamedItem(LEVEL).getTextContent();
+        if (levelText!= null)
+        {
+            return Integer.parseInt(levelText);
+        }
+        return 1;
+    }
     protected void loadSlideItem(Slide slide, Element item)
     {
-        int level = 1; // default
         NamedNodeMap attributes = item.getAttributes();
-        String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
-        if (leveltext != null)
+        try
         {
-            try
-            {
-                level = Integer.parseInt(leveltext);
-            }
-            catch (NumberFormatException x)
-            {
-                System.err.println(NFE);
-            }
+            int level = getItemLevel(attributes);
+        }
+        catch (NumberFormatException e)
+        {
+            System.err.println(NFE);
         }
         String type = attributes.getNamedItem(KIND).getTextContent();
-        if (TEXT.equals(type))
+        switch (type)
         {
-
-            slide.append(new TextItem(item.getTextContent()));
-
-        }
-        else
-        {
-            if (IMAGE.equals(type))
+            case TEXT :
+            {
+                slide.append(new TextItem(item.getTextContent()));
+                break;
+            }
+            case IMAGE:
             {
                 slide.append(new BitmapItem(item.getTextContent()));
             }
-            else
-            {
+            default:
                 System.err.println(UNKNOWNTYPE);
-            }
         }
     }
-
-    public void saveFile(Presentation presentation, String filename) throws IOException
+    private void print_heading(Presentation presentation,PrintWriter out)
     {
-        PrintWriter out = new PrintWriter(new FileWriter(filename));
         out.println("<?xml version=\"1.0\"?>");
         out.println("<!DOCTYPE presentation SYSTEM \"jabberpoint.dtd\">");
         out.println("<presentation>");
         out.print("<showtitle>");
         out.print(presentation.getTitle());
         out.println("</showtitle>");
+    }
+
+    public void saveFile(Presentation presentation, String filename) throws IOException
+    {//TODO check if this is ok
+        PrintWriter out = new PrintWriter(new FileWriter(filename));
+        print_heading(presentation,out);
         for (int slideNumber = 0; slideNumber < presentation.getSize(); slideNumber++)
         {
             Slide slide = presentation.getSlide(slideNumber);
@@ -160,25 +173,7 @@ public class XMLAccessor extends Accessor
             for (int itemNumber = 0; itemNumber < slideItems.size(); itemNumber++)
             {
                 SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
-                out.print("<item kind=");
-                if (slideItem instanceof TextItem)
-                {
-                    out.print("\"text\" style=\"" + slideItem.getStyle().toString() + "\">");
-                    out.print(((TextItem) slideItem).getText());
-                }
-                else
-                {
-                    if (slideItem instanceof BitmapItem)
-                    {
-                        out.print("\"image\" style=\"" + slideItem.getStyle().toString() + "\">");
-                        out.print(((BitmapItem) slideItem).getName());
-                    }
-                    else
-                    {
-                        System.out.println("Ignoring " + slideItem);
-                    }
-                }
-                out.println("</item>");
+                out.println(slideItem.getTagContent());
             }
             out.println("</slide>");
         }

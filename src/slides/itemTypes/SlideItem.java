@@ -13,5 +13,6 @@ public interface SlideItem
     Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle);
 
     Style getStyle();
+    String getTagContent();
 }
 
