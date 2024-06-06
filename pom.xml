@@ -1,24 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.yourorganization</groupId>
-    <artifactId>SoftwareQuality</artifactId>
+    <!-- Update the groupId to more accurately reflect your collaboration or project -->
+    <groupId>com.stefanandradu</groupId>
+    <artifactId>jabberpoint</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>Jabberpoint Collaboration</name>
+    <url>http://www.yourprojecturl.com</url>
+
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <jacoco.version>0.8.7</jacoco.version> <!-- JaCoCo version -->
     </properties>
 
     <dependencies>
-        <!-- Example dependency: JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
+        <!-- Existing dependencies... -->
     </dependencies>
+
+    <build>
+    <!-- If you still need to use pluginManagement for other purposes, keep it,
+         but ensure that JaCoCo is also declared outside of it. -->
+    <plugins>
+        <!-- JaCoCo plugin to measure and report code coverage -->
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+            <executions>
+                <execution>
+                    <id>prepare-agent</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>report</id>
+                    <phase>verify</phase> <!-- Ensures that the report is generated after tests are run -->
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 </project>
