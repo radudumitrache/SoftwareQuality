@@ -26,6 +26,6 @@ jobs:
       - name: Add labels
         uses: actions/labeler@v3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Ensure environment variable is correctly set
+          GITHUB_TOKEN: ${{ secrets.SOFTWARE_QUALITY }} # Ensure environment variable is correctly set
         with:
           configuration-path: .github/labeler.yml # Path to the label configuration file
