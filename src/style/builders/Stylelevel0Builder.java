@@ -1,15 +1,14 @@
 package style.builders;
 
-import style.types.Stylelevel0;
-
+import style.types.Style;
 import java.awt.*;
 
 public class Stylelevel0Builder implements StyleBuilder
 {
-    private int indent;
-    private Color color;
-    private int fontSize;
-    private int leading;
+    private int indent = 0;
+    private Color color = Color.RED;
+    private int fontSize = 48;
+    private int leading = 20;
 
     @Override
     public void setIndent(int indent)
@@ -36,8 +35,8 @@ public class Stylelevel0Builder implements StyleBuilder
     }
 
     @Override
-    public Stylelevel0 createStyle()
+    public Style createStyle()
     {
-        return new Stylelevel0(indent, color, fontSize, leading);
+        return new Style(indent, color, fontSize, leading);
     }
 }
