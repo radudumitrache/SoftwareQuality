@@ -16,93 +16,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <jacoco.version>0.8.7</jacoco.version> <!-- JaCoCo version -->
     </properties>
 
     <dependencies>
-        <!-- JUnit Jupiter API for unit testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.7.0</version>
-            <scope>test</scope>
-        </dependency>
-        
-        <!-- JSON processing dependency -->
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20210307</version>
-        </dependency>
-        
-        <!-- Simplified JSON processing library -->
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        
-        <!-- Mockito for mocking in tests -->
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>3.12.4</version>
-            <scope>test</scope>
-        </dependency>
+        <!-- Existing dependencies... -->
     </dependencies>
 
     <build>
         <pluginManagement>
             <plugins>
-                <!-- Maven Clean Plugin -->
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
-                </plugin>
-                
-                <!-- Maven Compiler Plugin to handle Java versions -->
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
-                </plugin>
-                
-                <!-- Maven JAR Plugin to package your application -->
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.2.0</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addClasspath>true</addClasspath>
-                                <mainClass>com.stefanandradu.jabberpoint.MainClass</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
+                <!-- Existing plugins... -->
 
-                <!-- Maven Assembly Plugin to create a jar with all dependencies -->
+                <!-- JaCoCo plugin to measure and report code coverage -->
                 <plugin>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.3.0</version>
-                    <configuration>
-                        <descriptorRefs>
-                            <descriptorRef>jar-with-dependencies</descriptorRef>
-                        </descriptorRefs>
-                        <archive>
-                            <manifest>
-                                <mainClass>com.stefanandradu.jabberpoint.MainClass</mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco.version}</version>
                     <executions>
                         <execution>
-                            <id>make-assembly</id>
-                            <phase>package</phase>
+                            <id>prepare-agent</id>
                             <goals>
-                                <goal>single</goal>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <phase>verify</phase> <!-- Binding jacoco:report goal to verify phase -->
+                            <goals>
+                                <goal>report</goal>
                             </goals>
                         </execution>
                     </executions>
