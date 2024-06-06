@@ -1,30 +1,27 @@
-name: automerge
+name: weekly pull request
+run-name: ${{ github.actor }} is testing out GitHub Actions
 on:
-  pull_request:
-    types:
-      - labeled
-      - unlabeled
-      - synchronize
-      - opened
-      - edited
-      - ready_for_review
-      - reopened
-      - unlocked
-  pull_request_review:
-    types:
-      - submitted
-  check_suite:
-    types:
-      - completed
-  status: {}
+  schedule:
+    - cron: "0 0 * * 5"
 jobs:
-  automerge:
+  create_pull_request:
     runs-on: ubuntu-latest
+
     steps:
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.16.3"
-        permissions:
-          contents: write
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get last commit author
+        id: last_commit_author
+        run: echo "::set-output name=author::$(git log -1 --pretty=format:'%an')"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: "Cloud - Update available list"
+          title: "Cloud - Update available list"
+          body: "Cloud - Update available list. Last commit by ${{ steps.last_commit_author.outputs.author }}"
+          base: main-dev
+          labels: automated-pr, Clouds & Regions
+          branch: "cloud-update-$(date +%Y-%m-%d)"
+          delete-branch: false
