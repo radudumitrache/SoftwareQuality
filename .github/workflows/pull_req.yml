@@ -20,9 +20,9 @@ jobs:
         uses: pascalgn/automerge-action@v0.14.3
         with:
           mergeMethod: merge # The method to use when merging the pull request into the base branch
-          githubToken: ${{ secrets.SOFTWARE_QUALITY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Add labels
         uses: actions/labeler@v3
         with:
           configuration-path: .github/labeler.yml # Path to the label configuration file
-          githubToken: ${{ secrets.SOFTWARE_QUALITY }} # Ensure environment variable is correctly set
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Ensure environment variable is correctly set
