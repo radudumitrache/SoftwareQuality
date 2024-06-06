@@ -20,7 +20,7 @@ jobs:
           distribution: "temurin"
 
       - name: Run tests and generate coverage report
-        run: mvn clean test jacoco:report
+        run: mvn clean verify
 
       - name: Upload to CodeClimate
         uses: paambaati/codeclimate-action@v6.0.0
