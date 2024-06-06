@@ -1,34 +1,33 @@
-name: Code Coverage and Quality Check
-
+name: Send zip
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  build-and-test:
+  my_job:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up JDK 11
+      - name: Log recent commit
+        run: git log -1
+
+      - name: Files in the project
+        run: ls -R
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: 11
+          java-version: "17"
           distribution: "temurin"
+          cache: maven
 
-      - name: Run Maven Verify
-        run: mvn clean verify
+      - name: Zip code coverage report directory
+        run: zip -r coverageReport.zip target/site
 
-      - name: Generate JaCoCo Coverage Report
-        run: mvn jacoco:report
-
-      - name: Upload to CodeClimate
-        uses: paambaati/codeclimate-action@v6.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - name: Upload code coverage report to google drive
+        uses: google-github-actions/setup-gcloud@v0
         with:
-          coverageCommand: mvn jacoco:report
-          debug: true
+          service_account_key: ${{ secrets.GCA_SA_KEY }}
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          filename: "coverageReport.zip"
+          overwrite: "true"
