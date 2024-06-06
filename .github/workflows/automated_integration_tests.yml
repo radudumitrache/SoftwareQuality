@@ -1,0 +1,24 @@
+name: Automated Integration Tests with Oracle JDK
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17 using Oracle JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "temurin" # Change to Temurin
+
+      - name: Run integration tests
+        run: |
+          mvn verify
