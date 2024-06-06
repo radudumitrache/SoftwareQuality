@@ -79,5 +79,10 @@ public class BitmapItem implements SlideItem
         TextDirector director = TextDirector.getInstance();
         return director.getStyle(this.styleType);
     }
+    @Override
+    public String getTagContent()
+    {
+        return "<item kind=\"image\" style=\"" + this.getStyle().toString() + "\">" + imageName + "</item>";
+    }
 
 }

@@ -111,7 +111,7 @@ public class TextItem implements SlideItem
             {
                 xsize = (int) bounds.getWidth();
             }
-            ysize += layout.getAscent() + layout.getDescent() + layout.getLeading();
+            ysize += (int) (layout.getAscent() + layout.getDescent() + layout.getLeading());
         }
         return new Rectangle((int) (style.getIndent() * scale), 0, xsize, ysize);
     }
@@ -122,7 +122,14 @@ public class TextItem implements SlideItem
         TextDirector director = TextDirector.getInstance();
         return director.getStyle(this.styleType);
     }
+    @Override
+    public String getTagContent()
+    {
+        String tagContent = this.getText();
+        String tag = "<item kind=\"text\" style=\"" + this.getStyle().toString() + "\">" + tagContent + "</item>";
+        return tag;
 
+    }
     public String toString()
     {
         return "Slides.TextItem[" + getStyleType() + "," + getText() + "]";

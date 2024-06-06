@@ -8,12 +8,9 @@ import style.types.StyleType;
 
 public class DemoPresentation extends Accessor
 {
-
-    public void loadFile(Presentation presentation, String unusedFilename)
+    private void make_first_slide(Presentation presentation)
     {
-        presentation.setTitle("Demo presentation.Presentation");
-        Slide slide;
-        slide = new Slide();
+        Slide slide = new Slide();
         slide.setTitle("JabberPoint");
         slide.append(StyleType.STYLELEVEL1, "The Java presentation.Presentation Tool");
         slide.append(StyleType.STYLELEVEL2, "Copyright (c) 1996-2000: Ian Darwin");
@@ -26,8 +23,10 @@ public class DemoPresentation extends Accessor
         slide.append(StyleType.STYLELEVEL3, "Previous slide: PgUp or up-arrow");
         slide.append(StyleType.STYLELEVEL3, "Quit: q or Q");
         presentation.append(slide);
-
-        slide = new Slide();
+    }
+    private void make_second_slide(Presentation presentation)
+    {
+        Slide slide = new Slide();
         slide.setTitle("Demonstration of levels and stijlen");
         slide.append(StyleType.STYLELEVEL1, "Level 1");
         slide.append(StyleType.STYLELEVEL2, "Level 2");
@@ -37,6 +36,10 @@ public class DemoPresentation extends Accessor
         slide.append(StyleType.STYLELEVEL3, "This is how level 3 looks like");
         presentation.append(slide);
 
+    }
+    private void make_third_slide(Presentation presentation)
+    {
+        Slide slide = new Slide();
         slide = new Slide();
         slide.setTitle("The third slide");
         slide.append(StyleType.STYLELEVEL1, "To open a new presentation,");
@@ -47,6 +50,13 @@ public class DemoPresentation extends Accessor
         SlideItem bitmapItem = bitmapItemCreator.createItemSlide();
         slide.append(bitmapItem);
         presentation.append(slide);
+    }
+    public void loadFile(Presentation presentation, String unusedFilename)
+    {
+        presentation.setTitle("Demo presentation.Presentation");
+        make_first_slide(presentation);
+        make_second_slide(presentation);
+        make_third_slide(presentation);
     }
 
     public void saveFile(Presentation presentation, String unusedFilename)
