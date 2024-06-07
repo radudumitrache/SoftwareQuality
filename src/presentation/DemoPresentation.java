@@ -6,7 +6,7 @@ import slides.itemCreators.TextItemCreator;
 import slides.Slide;
 import slides.itemTypes.SlideItem;
 import style.types.StyleType;
-import slides.itemTypes.*;
+
 public class DemoPresentation extends Accessor
 {
     private TextItemCreator textItemCreator;
