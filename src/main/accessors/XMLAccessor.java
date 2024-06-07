@@ -76,7 +76,7 @@ public class XMLAccessor extends Accessor
     }
     public void loadFile(Presentation presentation, String filename) throws IOException
     {
-        //TODO check if good
+        //TODO check if good`
         int slideNumber, itemNumber, max = 0, maxItems = 0;
         try
         {
@@ -136,6 +136,7 @@ public class XMLAccessor extends Accessor
             System.err.println(NFE);
         }
         String type = attributes.getNamedItem(KIND).getTextContent();
+
         switch (type)
         {
             case TEXT :
@@ -146,9 +147,12 @@ public class XMLAccessor extends Accessor
             case IMAGE:
             {
                 slide.append(new BitmapItem(StyleType.STYLELEVEL1,item.getTextContent()));
+                break;
             }
-            default:
-                System.err.println(UNKNOWNTYPE);
+            default: {
+                System.err.println(type);
+
+            }
         }
     }
     private void print_heading(Presentation presentation,PrintWriter out)

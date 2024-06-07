@@ -18,7 +18,7 @@ public class DemoPresentation extends Accessor
         String[] slideTexts = new String[] {"The Java presentation.Presentation Tool",
                 "Copyright (c) 1996-2000: Ian Darwin",
                 "Copyright (c) 2000-now:",
-                "Gert Florijn andn Sylvia Stuurman",
+                "Gert Florijn and Sylvia Stuurman",
                 "Starting JabberPoint without a filename",
                 "shows this presentation",
                 "Navigate:",
@@ -26,17 +26,23 @@ public class DemoPresentation extends Accessor
                 "Previous slide: PgUp or up-arrow",
                 "Quit: q or Q"
         };
-        StyleType[] slideStyles = new StyleType[] {StyleType.STYLELEVEL1, StyleType.STYLELEVEL2,
-                StyleType.STYLELEVEL2,StyleType.STYLELEVEL2,StyleType.STYLELEVEL3,
-                StyleType.STYLELEVEL3,StyleType.STYLELEVEL1,StyleType.STYLELEVEL3,
-                StyleType.STYLELEVEL3,StyleType.STYLELEVEL3};
+        StyleType[] slideStyles = new StyleType[] {StyleType.STYLELEVEL1,
+                StyleType.STYLELEVEL2,
+                StyleType.STYLELEVEL2,
+                StyleType.STYLELEVEL2,
+                StyleType.STYLELEVEL3,
+                StyleType.STYLELEVEL3,
+                StyleType.STYLELEVEL1,
+                StyleType.STYLELEVEL3,
+                StyleType.STYLELEVEL3,
+                StyleType.STYLELEVEL3};
         textItemCreator.createItemsAndAddToSlide(slideTexts,slideStyles,slide);
         presentation.append(slide);
     }
     private void make_second_slide(Presentation presentation)
     {
         Slide slide = new Slide();
-        slide.setTitle("Demonstration of levels and stijlen");
+        slide.setTitle("Demonstration of levels and styles");
         String[] slideTexts = new String[] {"Level 1",
                 "Level 2",
                 "Again Level 1",
@@ -87,8 +93,8 @@ public class DemoPresentation extends Accessor
         bitmapItemCreator = new BitmapItemCreator();
         textItemCreator = new TextItemCreator();
         make_first_slide(presentation);
-        make_second_slide(presentation);
-        make_third_slide(presentation);
+//        make_second_slide(presentation);
+//        make_third_slide(presentation);
     }
 
     public void saveFile(Presentation presentation, String unusedFilename)
