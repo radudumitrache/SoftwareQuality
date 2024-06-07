@@ -25,11 +25,23 @@ jobs:
       - name: Run Maven Build and Generate Coverage Report
         run: mvn clean verify
 
+      - name: Check JaCoCo Report Existence
+        run: ls -al target/site/jacoco
+
       - name: Generate JaCoCo Coverage Badge
         uses: cicirello/jacoco-badge-generator@v2.2.0
         with:
           badges-directory: coverage-badges
           jacoco-csv-file: target/site/jacoco/jacoco.csv
+          coverage-badge-filename: jacoco.svg
+          branches-badge-filename: branches.svg
+          generate-coverage-badge: true
+          generate-branches-badge: false
+          on-missing-report: fail
+          fail-if-coverage-less-than: 0
+          fail-if-branches-less-than: 0
+          fail-on-coverage-decrease: false
+          fail-on-branches-decrease: false
 
       - name: Commit Coverage Badges
         run: |
