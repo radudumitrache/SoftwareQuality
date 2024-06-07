@@ -11,7 +11,38 @@ class ConcreteStyleBuilderTest {
 
     @BeforeEach
     void setUp() {
-        builder = new ConcreteStyleBuilder();  // Assuming there's an implementing class
+        builder = new StyleBuilder()
+        {
+            @Override
+            public void setIndent(int indent)
+            {
+
+            }
+
+            @Override
+            public void setColor(Color color)
+            {
+
+            }
+
+            @Override
+            public void setFontSize(int fontSize)
+            {
+
+            }
+
+            @Override
+            public void setLeading(int leading)
+            {
+
+            }
+
+            @Override
+            public Style createStyle()
+            {
+                return null;
+            }
+        };  // Assuming there's an implementing class
     }
 
     @Test
