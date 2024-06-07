@@ -28,6 +28,11 @@ public class TextDirector
         this.stylelevel2Builder = new Stylelevel2Builder();
         this.stylelevel3Builder = new Stylelevel3Builder();
     }
+
+    public static void setInstance(TextDirector mockTextDirector)
+    {
+    }
+
     private static class SingletonHelper {
         private static final TextDirector INSTANCE = new TextDirector();
     }
@@ -46,6 +51,8 @@ public class TextDirector
 
     public Style getStyle(StyleType styleType)
     {
+        if(styleType == null)
+            throw new IllegalArgumentException("Style cannot be null");
         switch (styleType)
         {
             case STYLELEVEL0:

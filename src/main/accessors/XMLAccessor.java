@@ -49,11 +49,6 @@ public class XMLAccessor extends Accessor
     protected static final String KIND = "kind";
     protected static final String TEXT = "text";
     protected static final String IMAGE = "image";
-
-    /**
-     * tekst van messages
-     */
-    //TODO check error types and maybe write them separately
     protected static final String PCE = "Parser Configuration Exception";
     protected static final String UNKNOWNTYPE = "Unknown Element type";
     protected static final String NFE = "Number Format Exception";
@@ -76,7 +71,6 @@ public class XMLAccessor extends Accessor
     }
     public void loadFile(Presentation presentation, String filename) throws IOException
     {
-        //TODO check if good`
         int slideNumber, itemNumber, max = 0, maxItems = 0;
         try
         {
@@ -164,7 +158,7 @@ public class XMLAccessor extends Accessor
     }
 
     public void saveFile(Presentation presentation, String filename) throws IOException
-    {//TODO check if this is ok
+    {
         PrintWriter out = new PrintWriter(new FileWriter(filename));
         print_heading(presentation,out);
         for (int slideNumber = 0; slideNumber < presentation.getSize(); slideNumber++)
