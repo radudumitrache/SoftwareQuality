@@ -25,10 +25,15 @@ jobs:
       - name: Generate JaCoCo report
         run: mvn jacoco:report
 
-      - name: Display Surefire reports
-        if: failure()
-        run: cat target/surefire-reports/*.txt
+      - name: Check for Surefire reports
+        run: |
+          if [ -d "target/surefire-reports" ]; then
+            cat target/surefire-reports/*.txt
+          else
+            echo "Surefire reports directory not found"
+            exit 1
+          fi
 
       - name: Display JaCoCo report
-        if: failure()
+        if: always()
         run: ls -al target/site/jacoco
