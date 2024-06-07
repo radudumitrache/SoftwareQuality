@@ -2,6 +2,7 @@ package presentation;
 
 import accessors.Accessor;
 import slides.itemCreators.BitmapItemCreator;
+import slides.itemCreators.TextItemCreator;
 import slides.Slide;
 import slides.itemTypes.SlideItem;
 import style.types.StyleType;

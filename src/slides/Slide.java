@@ -41,7 +41,6 @@ public class Slide
     public void append(StyleType styleType, String message)
     {
         append(new TextItem(styleType, message));
-
     }
 
     public SlideItem getSlideItem(int number)
@@ -63,7 +62,6 @@ public class Slide
     {
         float scale = getScale(area);
         int y = area.y;
-
         SlideItem slideItem = new TextItem(StyleType.STYLELEVEL1, getTitle());
         TextDirector director = TextDirector.getInstance();
         Style style = director.getStyle(StyleType.STYLELEVEL1);
