@@ -20,6 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import presentation.Presentation;
+import style.types.StyleType;
 
 
 /**
@@ -144,7 +145,7 @@ public class XMLAccessor extends Accessor
             }
             case IMAGE:
             {
-                slide.append(new BitmapItem(item.getTextContent()));
+                slide.append(new BitmapItem(StyleType.STYLELEVEL1,item.getTextContent()));
             }
             default:
                 System.err.println(UNKNOWNTYPE);
