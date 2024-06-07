@@ -6,13 +6,16 @@ import slides.itemCreators.TextItemCreator;
 import slides.Slide;
 import slides.itemTypes.SlideItem;
 import style.types.StyleType;
-
+import slides.itemTypes.*
 public class DemoPresentation extends Accessor
 {
+    private TextItemCreator textItemCreator;
+    private BitmapItemCreator bitmapItemCreator;
     private void make_first_slide(Presentation presentation)
     {
         Slide slide = new Slide();
         slide.setTitle("JabberPoint");
+        TextItem subtitle = new TextItem();
         slide.append(StyleType.STYLELEVEL1, "The Java presentation.Presentation Tool");
         slide.append(StyleType.STYLELEVEL2, "Copyright (c) 1996-2000: Ian Darwin");
         slide.append(StyleType.STYLELEVEL2, "Copyright (c) 2000-now:");
