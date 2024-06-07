@@ -2,6 +2,7 @@ package main.controller;
 
 import main.accessors.Accessor;
 import main.accessors.XMLAccessor;
+import main.controller.commands.*;
 import main.presentation.Presentation;
 
 import java.awt.MenuBar;
@@ -9,10 +10,13 @@ import java.awt.Frame;
 import java.awt.Menu;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import javax.sound.midi.Receiver;
 import javax.swing.JOptionPane;
 
-public class MenuController extends MenuBar {
+public class MenuController extends MenuBar implements CommandReceiver {
 
     private Frame parent;
     private Presentation presentation;
@@ -39,73 +43,56 @@ public class MenuController extends MenuBar {
     protected static final String LOADERR = "Load Error";
     protected static final String SAVEERR = "Save Error";
 
-    private void new_presentation() {
-        presentation.clear();
-        parent.repaint();
-    }
-
-    private void load_presentation() {
-        presentation.clear();
-        Accessor xmlAccessor = new XMLAccessor();
-        try {
-            xmlAccessor.loadFile(presentation, TESTFILE);
-            presentation.setSlideNumber(0);
-        } catch (IOException exc) {
-            JOptionPane.showMessageDialog(parent, IOEX + exc, LOADERR, JOptionPane.ERROR_MESSAGE);
-        }
-        parent.repaint();
-    }
-
-    private void save_presentation()
-    {
-        Accessor xmlAccessor = new XMLAccessor();
-        try
-        {
-            xmlAccessor.saveFile(presentation, SAVEFILE);
-        }
-        catch (IOException exc)
-        {
-            JOptionPane.showMessageDialog(parent, IOEX + exc, SAVEERR, JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    private void go_to_presentation()
-    {
-        String pageNumberStr = JOptionPane.showInputDialog(PAGENR);
-        int pageNumber = Integer.parseInt(pageNumberStr);
-        presentation.setSlideNumber(pageNumber - 1);
-    }
-
     public MenuController(Frame frame, Presentation pres)
     {
-        //TODO see if i can use a pattern to make a function that uses a lambda example
+        OpenFileCommand openFileCommand = new OpenFileCommand(this.presentation, frame);
+        NewFileCommand newFileCommand = new NewFileCommand(this.presentation, frame);
+        SaveFileCommand saveFileCommand = new SaveFileCommand(this.presentation, frame);
+        ExitPresentationCommand exitCommand = new ExitPresentationCommand(this.presentation);
+        GoToNextSlideCommand nextSlideCommand = new GoToNextSlideCommand(this.presentation);
+        GoToPrevSlideCommand previousSlideCommand = new GoToPrevSlideCommand(this.presentation);
+        GoToSlideCommand goToSlideCommand = new GoToSlideCommand(this.presentation);
+        ShowAboutBoxCommand showAboutCommand = new ShowAboutBoxCommand(this.presentation, frame);
+
         parent = frame;
         presentation = pres;
-        MenuItem menuItem;
+
         Menu fileMenu = new Menu(FILE);
-        fileMenu.add(menuItem = mkMenuItem(OPEN));
-        menuItem.addActionListener( e -> load_presentation());
-        fileMenu.add(menuItem = mkMenuItem(NEW));
-        menuItem.addActionListener( e -> new_presentation());
-        fileMenu.add(menuItem = mkMenuItem(SAVE));
-        menuItem.addActionListener( e -> save_presentation());
+        addMenuItem(fileMenu,OPEN,openFileCommand);
+        addMenuItem(fileMenu,NEW,newFileCommand);
+        addMenuItem(fileMenu,SAVE,saveFileCommand);
         fileMenu.addSeparator();
-        fileMenu.add(menuItem = mkMenuItem(EXIT));
-        menuItem.addActionListener( e -> presentation.exit(0));
-        add(fileMenu);
+        addMenuItem(fileMenu,EXIT,exitCommand);
+
         Menu viewMenu = new Menu(VIEW);
-        viewMenu.add(menuItem = mkMenuItem(NEXT));
-        menuItem.addActionListener( e -> presentation.nextSlide());
-        viewMenu.add(menuItem = mkMenuItem(PREV));
-        menuItem.addActionListener( e -> presentation.prevSlide());
-        viewMenu.add(menuItem = mkMenuItem(GOTO));
-        menuItem.addActionListener( e -> go_to_presentation());
-        add(viewMenu);
+        addMenuItem(viewMenu,NEXT,nextSlideCommand);
+        addMenuItem(viewMenu,PREV,previousSlideCommand);
+        addMenuItem(viewMenu,GOTO,goToSlideCommand);
+
+
         Menu helpMenu = new Menu(HELP);
-        helpMenu.add(menuItem = mkMenuItem(ABOUT));
-        menuItem.addActionListener(e -> AboutBox.show(parent));
+        addMenuItem(helpMenu,HELP,showAboutCommand);
+
+        add(fileMenu);
+        add(viewMenu);
         setHelpMenu(helpMenu);
     }
-
+    private void addMenuItem(Menu menu,String commandTitle,Command command) {
+        MenuItem newMenuItem = mkMenuItem(commandTitle);
+        menu.add(newMenuItem);
+        newMenuItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent actionEvent)
+            {
+                executeCommand(command);
+            }
+        });
+    }
+    @Override
+    public void executeCommand(Command command)
+    {
+        command.execute();
+    }
     public MenuItem mkMenuItem(String name)
     {
         return new MenuItem(name, new MenuShortcut(name.charAt(0)));

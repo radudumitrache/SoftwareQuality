@@ -111,9 +111,9 @@ public class Presentation
         }
     }
 
-    public void exit(int n)
+    public void exit()
     {
-        System.exit(n);
+        System.exit(0);
     }
 }
 
