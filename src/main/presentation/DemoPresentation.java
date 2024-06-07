@@ -93,8 +93,8 @@ public class DemoPresentation extends Accessor
         bitmapItemCreator = new BitmapItemCreator();
         textItemCreator = new TextItemCreator();
         make_first_slide(presentation);
-//        make_second_slide(presentation);
-//        make_third_slide(presentation);
+        make_second_slide(presentation);
+        make_third_slide(presentation);
     }
 
     public void saveFile(Presentation presentation, String unusedFilename)
