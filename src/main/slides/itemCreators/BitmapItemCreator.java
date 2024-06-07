@@ -7,10 +7,6 @@ import main.style.types.StyleType;
 
 public class BitmapItemCreator implements SlideItemCreator
 {
-    //TODO check if correct
-
-
-
     @Override
     public SlideItem createItemSlide()
     {

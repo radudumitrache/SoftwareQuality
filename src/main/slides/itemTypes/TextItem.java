@@ -123,12 +123,10 @@ public class TextItem implements SlideItem
         return director.getStyle(this.styleType);
     }
     @Override
-    public String getTagContent()
-    {
-        String tagContent = this.getText();
-        String tag = "<item kind=\"text\" style=\"" + this.getStyle().toString() + "\">" + tagContent + "</item>";
-        return tag;
-
+    public String getTagContent() {
+        Style style = this.getStyle();
+        String styleString = (style != null) ? style.toString() : "default_style";
+        return "<item kind=\"text\" style=\"" + styleString + "\">" + text + "</item>";
     }
     public String toString()
     {

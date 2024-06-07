@@ -40,7 +40,7 @@ class SlideViewerComponentTest
         // Define behavior of presentation and slide
         when(mockPresentation.getSlideNumber()).thenReturn(1);
         when(mockPresentation.getSize()).thenReturn(10);
-        when(mockSlide.draw(any(Graphics.class), any(Rectangle.class), any(JComponent.class))).thenReturn(null);
+       // when(mockSlide.draw(any(Graphics.class), any(Rectangle.class), any(JComponent.class))).thenReturn(null);
 
         slideViewerComponent.update(mockPresentation, mockSlide);
 
