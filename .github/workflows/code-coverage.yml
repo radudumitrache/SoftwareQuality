@@ -25,8 +25,12 @@ jobs:
       - name: Run Maven Build and Generate Coverage Report
         run: mvn clean verify
 
-      - name: Check JaCoCo Report Existence
+      - name: List JaCoCo Report Directory
         run: ls -al target/site/jacoco
+
+      - name: Print Maven Logs
+        if: failure()
+        run: cat target/surefire-reports/*.txt
 
       - name: Generate JaCoCo Coverage Badge
         uses: cicirello/jacoco-badge-generator@v2.2.0
