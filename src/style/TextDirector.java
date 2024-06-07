@@ -95,23 +95,16 @@ public class TextDirector
         switch (styleType)
         {
             case STYLELEVEL0:
-            {
-                return this.stylelevel1;
-            }
-            case STYLELEVEL1:
-            {
                 return this.stylelevel0;
-            }
+            case STYLELEVEL1:
+                return this.stylelevel1;
             case STYLELEVEL2:
-            {
                 return this.stylelevel2;
-            }
             case STYLELEVEL3:
-            {
                 return this.stylelevel3;
-            }
+            default:
+                throw new IllegalArgumentException("Unknown Style Type");
         }
-        return this.stylelevel1;
     }
 
 }
