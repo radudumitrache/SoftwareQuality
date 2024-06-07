@@ -9,7 +9,6 @@ main.JabberPoint is an innovative presentation tool designed for delivering high
 1. Clone the GitHub repository or download the source code.
 2. Open the project in an IDE like IntelliJ (as indicated by `Jabberpoint-IT.iml`).
 3. Navigate to the `src` directory and compile the source code.
-4. Run the compiled binary from the `bin` directory.
 
 ## Usage
 
