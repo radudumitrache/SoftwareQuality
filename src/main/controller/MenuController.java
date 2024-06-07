@@ -45,6 +45,9 @@ public class MenuController extends MenuBar implements CommandReceiver {
 
     public MenuController(Frame frame, Presentation pres)
     {
+        parent = frame;
+        presentation = pres;
+
         OpenFileCommand openFileCommand = new OpenFileCommand(this.presentation, frame);
         NewFileCommand newFileCommand = new NewFileCommand(this.presentation, frame);
         SaveFileCommand saveFileCommand = new SaveFileCommand(this.presentation, frame);
@@ -53,9 +56,6 @@ public class MenuController extends MenuBar implements CommandReceiver {
         GoToPrevSlideCommand previousSlideCommand = new GoToPrevSlideCommand(this.presentation);
         GoToSlideCommand goToSlideCommand = new GoToSlideCommand(this.presentation);
         ShowAboutBoxCommand showAboutCommand = new ShowAboutBoxCommand(this.presentation, frame);
-
-        parent = frame;
-        presentation = pres;
 
         Menu fileMenu = new Menu(FILE);
         addMenuItem(fileMenu,OPEN,openFileCommand);

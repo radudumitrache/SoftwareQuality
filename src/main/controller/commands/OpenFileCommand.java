@@ -24,6 +24,7 @@ public class OpenFileCommand extends Command {
         presentation.clear();
         Accessor xmlAccessor = new XMLAccessor();
         try {
+
             xmlAccessor.loadFile(presentation, "test.xml");
             presentation.setSlideNumber(0);
         } catch (IOException exc) {
