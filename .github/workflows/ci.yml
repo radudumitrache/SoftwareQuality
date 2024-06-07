@@ -23,9 +23,7 @@ jobs:
           distribution: "temurin"
 
       - name: Build and test with Coverage
-        run: |
-          mvn clean install -Pcoverage
-          mvn jacoco:report
+        run: mvn clean verify
 
       - name: Upload JaCoCo Coverage Report
         uses: actions/upload-artifact@v2

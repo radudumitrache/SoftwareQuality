@@ -23,7 +23,7 @@ jobs:
           distribution: "temurin"
 
       - name: Run Maven Build and Generate Coverage Report
-        run: mvn clean test
+        run: mvn clean verify
 
       - name: Generate JaCoCo Coverage Badge
         uses: cicirello/jacoco-badge-generator@v2.2.0

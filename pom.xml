@@ -70,7 +70,7 @@
                     </execution>
                     <execution>
                         <id>generate-report</id>
-                        <phase>verify</phase> <!-- This might need to be test if you run tests only -->
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
