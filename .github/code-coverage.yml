@@ -1,0 +1,51 @@
+name: Java Code Coverage
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  test-and-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Run Maven Build and Generate Coverage Report
+        run: mvn clean test
+
+      - name: Generate JaCoCo Coverage Badge
+        uses: cicirello/jacoco-badge-generator@v2.2.0
+        with:
+          badges-directory: coverage-badges
+
+      - name: Commit Coverage Badges
+        run: |
+          git fetch --unshallow || true
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add coverage-badges/*.svg
+          git commit -m "Update coverage badges" || true
+          git push
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+      - name: Comment on PR with Coverage Details
+        if: github.event_name == 'pull_request'
+        run: |
+          COVERAGE=$(grep 'Line Coverage' coverage-badges/jacoco.svg | sed 's/.*Line Coverage: \(.*\)%/\1/')
+          echo "## Code Coverage Report" > comment.md
+          echo "* Line Coverage: ${COVERAGE}%" >> comment.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
