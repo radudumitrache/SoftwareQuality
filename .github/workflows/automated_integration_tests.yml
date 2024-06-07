@@ -2,9 +2,9 @@ name: Automated Integration Tests with Oracle JDK
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main]
   pull_request:
-    branches: [main, dev]
+    branches: [main]
 
 jobs:
   integration-tests:
