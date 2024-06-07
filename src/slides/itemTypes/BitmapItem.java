@@ -22,8 +22,9 @@ public class BitmapItem implements SlideItem
     protected static final String FILE = "File";
     protected static final String NOTFOUND = "not found";
 
-    public BitmapItem(String name)
+    public BitmapItem(StyleType styleType,String name)
     {
+        this.styleType = styleType;
         imageName = name;
         try
         {
@@ -38,7 +39,7 @@ public class BitmapItem implements SlideItem
 
     public BitmapItem()
     {
-        this(null);
+        this(null,null);
     }
 
     public String getName()

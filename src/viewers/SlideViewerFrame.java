@@ -17,6 +17,10 @@ public class SlideViewerFrame extends JFrame
     public static final int HEIGHT = 800;
     private static SlideViewerFrame instance;
 
+
+    private static class SingletonHelper {
+        private static final SlideViewerFrame INSTANCE = new SlideViewerFrame(JABTITLE, new Presentation());
+    }
     private SlideViewerFrame(String title, Presentation presentation)
     {
         super(title);
@@ -25,13 +29,8 @@ public class SlideViewerFrame extends JFrame
         setupWindow(slideViewerComponent, presentation);
     }
 
-    public static SlideViewerFrame getInstance(String title, Presentation presentation)
-    {
-        if (instance == null)
-        {
-            instance = new SlideViewerFrame(title, presentation);
-        }
-        return instance;
+    public static SlideViewerFrame getInstance(String title, Presentation presentation) {
+        return SingletonHelper.INSTANCE;
     }
 
     public void setupWindow(SlideViewerComponent slideViewerComponent, Presentation presentation)
