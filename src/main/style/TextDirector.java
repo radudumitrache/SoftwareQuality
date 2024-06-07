@@ -46,12 +46,19 @@ public class TextDirector
 
     public Style getStyle(StyleType styleType)
     {
-        return switch (styleType) {
-            case STYLELEVEL0 -> this.stylelevel1;
-            case STYLELEVEL1 -> this.stylelevel0;
-            case STYLELEVEL2 -> this.stylelevel2;
-            case STYLELEVEL3 -> this.stylelevel3;
-        };
+        switch (styleType)
+        {
+            case STYLELEVEL0:
+                return this.stylelevel0;
+            case STYLELEVEL1:
+                return this.stylelevel1;
+            case STYLELEVEL2:
+                return this.stylelevel2;
+            case STYLELEVEL3:
+                return this.stylelevel3;
+            default:
+                throw new IllegalArgumentException("Unknown Style Type");
+        }
     }
 
 }
