@@ -26,7 +26,9 @@ jobs:
         run: mvn jacoco:report
 
       - name: Display Surefire reports
+        if: failure()
         run: cat target/surefire-reports/*.txt
 
       - name: Display JaCoCo report
+        if: failure()
         run: ls -al target/site/jacoco
